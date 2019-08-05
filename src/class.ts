@@ -65,3 +65,89 @@ class Cat extends Animal {
 
 let cat = new Cat('kitty')
 cat.sayhi()
+
+
+// 类实现接口
+// 实现（implements）是面向对象中的一个重要概念。
+// 一般来讲，一个类只能继承自另一个类，有时候不同类之间可以有一些共有的特性，
+// 这时候就可以把特性提取成接口（interfaces），用 implements 关键字来实现。这个特性大大提高了面向对象的灵活性
+// 多个接口的实现用逗号隔开 implements a, b, c
+interface Alarm {
+    alert():void;
+}
+class Door {
+    open(){
+        console.log('open')
+    }
+    close () {
+        console.log('close')
+    }
+}
+
+class SecurityDoor extends Door implements Alarm {
+    alert () {
+        console.log('scurity door alert')
+    }
+}
+
+class Car implements Alarm {
+    alert () {
+        console.log('car alert')
+    }
+    logo () {}
+}
+
+// new Alarm() // not ok
+
+const car = new Car()
+const securityDoor = new SecurityDoor();
+
+console.log(car)
+car.alert()
+console.log(securityDoor)
+securityDoor.alert()
+
+// 接口继承接口
+// 接口与接口之间也可以是继承关系
+interface Book {
+    page():number;
+}
+
+interface Notebook extends Book {
+    size():String;
+}
+
+class Story implements Notebook {
+    page () {
+        return 100
+    }
+    size () {
+        return 'A5'
+    }
+}
+const story = new Story()
+console.log(story)
+
+// 接口继承类
+class Point {
+    x: number;
+    y: number;
+}
+interface Point3D extends Point {
+    z: number
+}
+
+let point3d: Point3D  = {
+    x: 1,
+    y: 1,
+    z: -5
+}
+
+// 混合类型
+interface SearchFunc {
+    (source: string, subString: string): boolean;
+}
+let mySearch: SearchFunc;
+mySearch = function (source: string, subString: string) {
+    return source.search(subString) !== -1
+}
