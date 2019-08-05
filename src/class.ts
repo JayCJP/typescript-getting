@@ -66,12 +66,58 @@ class Cat extends Animal {
 let cat = new Cat('kitty')
 cat.sayhi()
 
+// 多态
+abstract class Laugh {
+    abstract mouth(): void;
+}
+
+class Hehe extends Laugh {
+    mouth () {
+        console.log('he he')
+    }
+}
+
+class Xixi extends Laugh {
+    mouth () {
+        console.log('xi xi')
+    }
+}
+let xiao: Laugh[] = [new Hehe(), new Xixi()]
+
+xiao.forEach(i => {
+    i.mouth()  
+});
+
+// this
+class WorkFlow {
+    step1 () {
+        return this
+    }
+
+    step2 () {
+        return this
+    }
+}
+new WorkFlow().step1().step2()
+
+class MyFlow extends WorkFlow {
+    next () {
+        return this
+    }
+}
+// this 指向可以保证父子之间的调用连贯性
+new MyFlow().next().step1().next().step2();
+
+
 
 // 类实现接口
 // 实现（implements）是面向对象中的一个重要概念。
 // 一般来讲，一个类只能继承自另一个类，有时候不同类之间可以有一些共有的特性，
 // 这时候就可以把特性提取成接口（interfaces），用 implements 关键字来实现。这个特性大大提高了面向对象的灵活性
 // 多个接口的实现用逗号隔开 implements a, b, c
+// 类在实现接口的时候，必须声明接口中的所有属性
+// 接口自能约束类的共有成员
+// 接口不能约束类的构造函数
 interface Alarm {
     alert():void;
 }
@@ -116,6 +162,7 @@ interface Book {
 interface Notebook extends Book {
     size():String;
 }
+
 
 class Story implements Notebook {
     page () {
